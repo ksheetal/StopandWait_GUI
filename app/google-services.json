@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "733288576849",
+    "firebase_url": "https://stopandwait-ce1df.firebaseio.com",
+    "project_id": "stopandwait-ce1df",
+    "storage_bucket": "stopandwait-ce1df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733288576849:android:44ee58ced6e57651",
+        "android_client_info": {
+          "package_name": "com.example.sheetal.stopandwait"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733288576849-6fm7mauav7k16u57ruou1bf5evu3qjjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sheetal.stopandwait",
+            "certificate_hash": "3bff03fcb802dc41951871acc6d60b10abd72f5e"
+          }
+        },
+        {
+          "client_id": "733288576849-t3gp6ensftrd16cdcjnrf5ns512lm6o9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjJR2_LPMxj-oi6Yq19BGyctCLxbirMS8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733288576849-t3gp6ensftrd16cdcjnrf5ns512lm6o9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
