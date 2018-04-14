@@ -1,13 +1,17 @@
 package com.example.sheetal.stopandwait;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     EditText message;
 
     public boolean isRunning = false;
-    Button sendData;
+    Button sendData,Breceiver,Bsender;
     TextView ackl,Tcounter;
 
     CountDownTimer myCounter;
@@ -39,25 +43,34 @@ public class MainActivity extends AppCompatActivity {
         db  = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
 
+
         Tcounter = findViewById(R.id.text_counter);
         message = findViewById(R.id.editText);
         ackl = findViewById(R.id.ack);
         sendData = findViewById(R.id.button);
+        Breceiver = findViewById(R.id.button1);
+        Bsender = findViewById(R.id.button2);
+
+        final Animation move1 = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.move);
 
         sendData.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                Bsender.setBackgroundColor(Color.RED);
+                Breceiver.setBackgroundColor(Color.BLACK);
                 if (ackl.getText().toString().equals("0")) {
+                    Breceiver.setBackgroundColor(Color.BLACK);
                     Toast.makeText(MainActivity.this, "Last Acknowledgment not received! Wait for timer to finish.", Toast.LENGTH_SHORT).show();
                 }else {
 
-                    StartProgress();
+                    //StartProgress();
                     Data data = new Data();
                     data.setAck("0");
                     data.setMessage(message.getText().toString());
                     databaseReference.setValue(data);
                     StartCounter();
+                    Bsender.startAnimation(move1);
                     //myCounter.start();
                 }
             }
@@ -79,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 if(ackl.getText().toString().equals("1")){
                    // isRunning = true;
            //         StartCounter();
+                    Bsender.clearAnimation();
+                    Breceiver.setBackgroundColor(Color.GREEN);
                     Toast.makeText(MainActivity.this,"Acknowledgment Updated.",Toast.LENGTH_SHORT).show();
                     //isRunning = true;
                     //                myCounter.cancel();
