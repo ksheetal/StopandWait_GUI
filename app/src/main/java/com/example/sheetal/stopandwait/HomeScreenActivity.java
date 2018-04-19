@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +24,8 @@ public class HomeScreenActivity extends AppCompatActivity {
     DatabaseReference db,db1;
     ProgressDialog progressDialog;
 
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         ackno=findViewById(R.id.msg);
         sendMsg = findViewById(R.id.send_msg_button);
         sendAck = findViewById(R.id.send_acknowledgment);
+        imageView = findViewById(R.id.imageView2);
 
         progressDialog = new ProgressDialog(this);
 
@@ -42,9 +47,9 @@ public class HomeScreenActivity extends AppCompatActivity {
                 progressDialog.setTitle("Sending Acknowledgment");
                 progressDialog.setMessage("Wait for moment.....");
                 progressDialog.setProgress(0);
-                progressDialog.show();
-
-
+              //  progressDialog.show();
+                    imageView.setImageResource(R.drawable.senderone);
+                Toast.makeText(HomeScreenActivity.this,"Acknowledgment sent ",Toast.LENGTH_SHORT).show();
                 Runnable progressRunnable = new Runnable() {
 
                     @Override

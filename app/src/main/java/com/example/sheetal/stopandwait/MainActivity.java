@@ -2,6 +2,7 @@ package com.example.sheetal.stopandwait;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.icu.util.UniversalTimeScale;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -82,7 +83,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+      /*  int secs = 2; // Delay in seconds
 
+        Utils.(secs, new Utils.DelayCallback() {
+            @Override
+            public void afterDelay() {
+                // Do something after delay
+
+            }
+        });
+*/
         db.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -125,18 +135,24 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if(ackl.getText().toString().equals("0")){
-                    Toast.makeText(MainActivity.this,"Acknowledgment was not received. :(",Toast.LENGTH_SHORT).show();
-                    Data data = new Data();
-                    data.setAck("1");
-                    data.setMessage(message.getText().toString());
-                    databaseReference.setValue(data);
-                }else{
-                    Toast.makeText(MainActivity.this,"Acknowledgment was received in time :)",Toast.LENGTH_SHORT).show();
-                }
-                Tcounter.setText("Done!");
+                checkdata();
             }
         }.start();
+    }
+
+    private void checkdata() {
+        if(ackl.getText().toString().equals("0")){
+            imageView = findViewById(R.id.imageView);
+            imageView.setImageResource(R.drawable.acknotrec);
+            Toast.makeText(MainActivity.this,"Acknowledgment was not received. :(",Toast.LENGTH_SHORT).show();
+            Data data = new Data();
+            data.setAck("1");
+            data.setMessage(message.getText().toString());
+            databaseReference.setValue(data);
+        }else{
+            Toast.makeText(MainActivity.this,"Acknowledgment was received in time :)",Toast.LENGTH_SHORT).show();
+        }
+        Tcounter.setText("Done!");
     }
 
 

@@ -4,7 +4,8 @@ package com.example.sheetal.stopandwait;
  * Created by sheetal on 4/11/2018.
  */
 
-public class Data {
+public class
+Data {
     public String message;
     public String ack;
 
