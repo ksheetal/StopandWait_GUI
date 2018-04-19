@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
+    public ImageView imageView;
 
     DatabaseReference databaseReference, db;
     EditText message;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
 
+        final ImageView imageView = findViewById(R.id.imageView);
         Tcounter = findViewById(R.id.text_counter);
         message = findViewById(R.id.editText);
         ackl = findViewById(R.id.ack);
@@ -61,11 +64,14 @@ public class MainActivity extends AppCompatActivity {
                 Breceiver.setBackgroundColor(Color.BLACK);
                 if (ackl.getText().toString().equals("0")) {
                     Breceiver.setBackgroundColor(Color.BLACK);
+                    imageView.setImageResource(R.drawable.acknotrec);
                     Toast.makeText(MainActivity.this, "Last Acknowledgment not received! Wait for timer to finish.", Toast.LENGTH_SHORT).show();
                 }else {
 
                     //StartProgress();
+                    imageView.setImageResource(R.drawable.afterack);
                     Data data = new Data();
+                    Toast.makeText(MainActivity.this, "Message send!", Toast.LENGTH_SHORT).show();
                     data.setAck("0");
                     data.setMessage(message.getText().toString());
                     databaseReference.setValue(data);
@@ -92,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 if(ackl.getText().toString().equals("1")){
                    // isRunning = true;
            //         StartCounter();
+                    imageView.setImageResource(R.drawable.onepic);
                     Bsender.clearAnimation();
                     Breceiver.setBackgroundColor(Color.GREEN);
                     Toast.makeText(MainActivity.this,"Acknowledgment Updated.",Toast.LENGTH_SHORT).show();
