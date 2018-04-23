@@ -86,7 +86,6 @@ public class HomeScreenActivity extends AppCompatActivity {
                     msg = data1.getMessage();
                     akl = data1.getAck();
                 }
-
                 ackno.setText(msg);
 
             }

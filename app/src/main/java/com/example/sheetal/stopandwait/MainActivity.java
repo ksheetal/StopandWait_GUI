@@ -1,6 +1,7 @@
 package com.example.sheetal.stopandwait;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.icu.util.UniversalTimeScale;
 import android.os.CountDownTimer;
@@ -28,12 +29,14 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     public ImageView imageView;
 
+    TextView textView9;
+
     DatabaseReference databaseReference, db;
     EditText message;
 
     public boolean isRunning = false;
     Button sendData,Breceiver,Bsender;
-    TextView ackl,Tcounter;
+    TextView ackl,Tcounter,dialData;
 
     CountDownTimer myCounter;
 
@@ -54,13 +57,24 @@ public class MainActivity extends AppCompatActivity {
         sendData = findViewById(R.id.button);
         Breceiver = findViewById(R.id.button1);
         Bsender = findViewById(R.id.button2);
+        textView9 = findViewById(R.id.textView9);
+        //dialData = findViewById(R.id.textView8);
 
         final Animation move1 = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.move);
+
+
+        textView9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialoge();
+            }
+        });
 
         sendData.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                String data3 = null;
                 Bsender.setBackgroundColor(Color.RED);
                 Breceiver.setBackgroundColor(Color.BLACK);
                 if (ackl.getText().toString().equals("0")) {
@@ -74,14 +88,19 @@ public class MainActivity extends AppCompatActivity {
                     Data data = new Data();
                     Toast.makeText(MainActivity.this, "Message send!", Toast.LENGTH_SHORT).show();
                     data.setAck("0");
-                    data.setMessage(message.getText().toString());
+                    data3 =message.getText().toString();
+                    data.setMessage(data3);
+                  //  dialData.setText(message.getText().toString());
+                    returnmessage(data);
                     databaseReference.setValue(data);
                     StartCounter();
                     Bsender.startAnimation(move1);
+                    message.setText("");
                     //myCounter.start();
                 }
             }
         });
+
 
       /*  int secs = 2; // Delay in seconds
 
@@ -123,6 +142,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public String returnmessage(Data data) {
+        //Intent intent = new Intent(MainActivity.this,dialoge.class);
+        //intent.putExtra("hello",message.getText().toString());
+        //startActivity(intent);
+        return String.valueOf(data);
+    }
+
+    private void openDialoge() {
+        dialoge dialoge = new dialoge();
+        dialoge.show(getSupportFragmentManager(),"Sender's Message");
+
+        }
 
     private void StartCounter() {
 
