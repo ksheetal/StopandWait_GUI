@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
@@ -80,23 +82,34 @@ public class MainActivity extends AppCompatActivity {
                 if (ackl.getText().toString().equals("0")) {
                     Breceiver.setBackgroundColor(Color.BLACK);
                     imageView.setImageResource(R.drawable.acknotrec);
-                    Toast.makeText(MainActivity.this, "Last Acknowledgment not received! Wait for timer to finish.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Last packet's  Acknowledgment not received! Wait for timer to finish.", Toast.LENGTH_SHORT).show();
                 }else {
 
                     //StartProgress();
                     imageView.setImageResource(R.drawable.afterack);
                     Data data = new Data();
-                    Toast.makeText(MainActivity.this, "Message send!", Toast.LENGTH_SHORT).show();
-                    data.setAck("0");
-                    data3 =message.getText().toString();
-                    data.setMessage(data3);
-                  //  dialData.setText(message.getText().toString());
-                    returnmessage(data);
-                    databaseReference.setValue(data);
-                    StartCounter();
-                    Bsender.startAnimation(move1);
-                    message.setText("");
-                    //myCounter.start();
+                    Toast.makeText(MainActivity.this, "Packet send!", Toast.LENGTH_SHORT).show();
+                    Random r = new Random();
+                    int i = r.nextInt(3 - 1)+1;
+                    Toast.makeText(MainActivity.this,"Random Value  : " +i,Toast.LENGTH_SHORT).show();
+                    if(i==2) {
+                        Bsender.startAnimation(move1);
+                        Toast.makeText(MainActivity.this,"Packet Lost.!!",Toast.LENGTH_SHORT).show();
+                        imageView.setImageResource(R.drawable.packetlostimg);
+                        Bsender.clearAnimation();
+                    }else {
+                        data.setAck("0");
+                        data3 =message.getText().toString();
+                        data.setMessage(data3);
+                        //  dialData.setText(message.getText().toString());
+                        returnmessage(data);
+                        databaseReference.setValue(data);
+                        StartCounter();
+                        Bsender.startAnimation(move1);
+                        message.setText("");
+                        //myCounter.start();
+                    }
+
                 }
             }
         });
@@ -127,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 if(ackl.getText().toString().equals("1")){
                    // isRunning = true;
            //         StartCounter();
-                    imageView.setImageResource(R.drawable.onepic);
+                    imageView.setImageResource(R.drawable.packetreceived);
                     Bsender.clearAnimation();
                     Breceiver.setBackgroundColor(Color.GREEN);
                     Toast.makeText(MainActivity.this,"Acknowledgment Updated.",Toast.LENGTH_SHORT).show();
@@ -177,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
             imageView = findViewById(R.id.imageView);
             imageView.setImageResource(R.drawable.acknotrec);
             Toast.makeText(MainActivity.this,"Acknowledgment was not received. :(",Toast.LENGTH_SHORT).show();
+
+
             Data data = new Data();
             data.setAck("1");
             data.setMessage(message.getText().toString());

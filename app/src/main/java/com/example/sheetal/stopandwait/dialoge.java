@@ -55,7 +55,7 @@ public TextView textView;
         });
 
         builder.setView(view)
-                .setTitle("Your Message")
+                .setTitle("Welcome to the StopAndWait Highway!")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
