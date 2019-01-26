@@ -1,5 +1,5 @@
 # StopandWait_GUI
 
-# Submitted 
+# succesfully submitted. 
 `this project is no longer maintained`
 
